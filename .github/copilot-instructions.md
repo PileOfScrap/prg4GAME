@@ -138,6 +138,3 @@ export class Thing extends Actor {
     }
 }
 ```
-
-
-
