@@ -4,7 +4,7 @@ export class MainMenu extends Scene {
 
     onInitialize(engine) {
         const title = new Label({
-            text: 'AQUANAUQA',
+            text: 'AQUANAUT',
             pos: new Vector(300, 150),
         })
 
