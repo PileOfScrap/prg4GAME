@@ -46,9 +46,16 @@ export class MainScene extends Scene {
     onPreUpdate(engine) {
         this.enemyTimer -= 1
         if(this.enemyTimer < 0) {
-            const pos = this.getOffscreenPosition(engine)
-            const enemy = new Seeker(pos)
+            let pos = this.getOffscreenPosition(engine)
+            let enemy = new Seeker(pos)
             this.add(enemy)
+
+            let sprint = new Sprinter(pos)
+            this.add(sprint)
+            
+            let crate = new Crate(pos, 10)
+            this.add(crate)
+
 
             this.enemyTimer = 700
         }
