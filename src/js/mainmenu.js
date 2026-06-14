@@ -9,7 +9,7 @@ export class MainMenu extends Scene {
         })
 
         const highScore = new Label({
-            text: `High Score: ${engine.highScore ?? 0}`,
+            text: `High Score: ${this.engine.high}`,
             pos: new Vector(300, 220),
         })
 
