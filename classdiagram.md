@@ -12,86 +12,51 @@ classDiagram
     
     class EnemyBase {
       + health: int
-      + sprite: str
-      + weight: int
-      + state: int
-      + target: str
-      - baseSpeed: float
-      - sprite: str
       + currentSpeed: float
-      + liftable: bool
-      + vortexable: bool
-      + followCursor(): void
       + takeDamage(): void
 
     }
 
-    class ExplodeEnemy {
-      + explode(): void
-    }
-
-    class ShooterEnemy {
-      + shoot(): void
-    }
-
-    class SummonerEnemy {
-      - summonInterval: int
-      - preferredSummonType: str
-      - summonEnemy(): void
-    }
-
-    class Bullet {
-      - dir: (float, float)
-      + speed: int
-      
-    }
-
-    class Debris {
-      - position: (int, int)
-      - speed: (int, int)
-      - type: int
-      + weight: int
-      + vortexable: bool
-      - sprite: str
-
-      + followCursor(): void
-    }
-
-    class Player {
-      - lives: int
-      - score: int
-      + juice: int
+    class Sprinter {
       + move(): void
     }
 
-    class JuiceContainer {
-      - juiceAmount
-      - spawnDroplets(): void
+    class Seeker {
+      + move(): void
+      + deathEffect(): void
     }
 
-    class Droplets {
-      + IncreaseJuice
+    class Bullet {
+      + dir: (float, float)
+      + speed: float
+      
+    }
+
+    class Player {
+      + health: int
+      + ammo: int
+      + move(): void
+    }
+
+    class Crate {
+      + ammo: int
     }
     
     class Game {
-      - player: Player
-      - level: Level
+      + scenes: str
       + startGame(): void
-      + updateGame(): void
     }
     
     Actor <|-- Player
-    Actor <|-- Debris
     Actor <|-- EnemyBase
     Actor <|-- Bullet
-    Actor <|-- Debris
-    Debris <|-- JuiceContainer
-    Actor <|-- Droplets
-    EnemyBase <|-- ExplodeEnemy
-    EnemyBase <|-- ShooterEnemy
-    EnemyBase <|-- SummonerEnemy
-    Game *-- Player
-    Game *-- Debris
-    ShooterEnemy *-- Bullet
-    JuiceContainer *-- Droplets
+    Debris <|-- Crate
+    EnemyBase <|-- Seeker
+    EnemyBase <|-- Sprinter
+    Game *-- Scene
+    Scene *-- Player
+    Scene *-- Seeker
+    Scene *-- Sprinter
+    Scene *-- Crate
+    Seeker *-- Crate
 ```

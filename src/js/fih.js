@@ -1,5 +1,7 @@
 import { Resources } from './resources.js'
-import { Actor, Vector, Engine, randomInRange, Graphic, Util } from 'excalibur'
+import { toXY, addAngle } from './functions.js'
+import { Actor, Vector, Engine, randomInRange, Graphic, Util, randomIntInRange } from 'excalibur'
+import { Bubble } from './bubble.js'
 
 export class Fih extends Actor {
 
@@ -8,33 +10,42 @@ export class Fih extends Actor {
     
 
     constructor() {
-        super({
-            width: 50.,
-            height: 50
-        })
-        this.rand = Math.random()
-        console.log(this.rand)
-
-        if(this.rand > 0.4) {
+        super()
+        this.rand = randomIntInRange(1, 3)
+        if(this.rand === 1) {
             this.graphics.use(Resources.Fih1.toSprite())
-        } else {
+        } if(this.rand === 2) {
             this.graphics.use(Resources.Dopefih.toSprite())
-        } 
+        } if(this.rand === 3) {
+            this.graphics.use(Resources.Crab.toSprite())
+        }
 
-        this.scale = new Vector (0.2, 0.2)
+        this.scale = new Vector (0.0, 0.0)
         
-        this.pos = new Vector(randomInRange(0, 500), randomInRange(0, 500))
+        this.pos = new Vector(randomInRange(0, 1280), randomInRange(0, 720))
 
-        this.events.on("exitviewport", (e) => this.kill())
+        this.speed = 60
+        this.on('exitviewport', (e) => this.remove())
+    }
 
-        this.moveDir = randomInRange(0, 360);
-        this.targetDir = this.moveDir;
-        this.speed = 50; // tweak as needed
-
+    remove() {
+        this.scale = new Vector (0.0, 0.0)
+        this.pos = new Vector(randomInRange(this.scene.camera.pos.x - 640, this.scene.camera.pos.x + 640), randomInRange(this.scene.camera.pos.y - 360, this.scene.camera.pos.y + 360))
+        
     }
 
     onPreUpdate(engine) {
-        
+        this.vel = toXY(this.speed, this.dir)
+        this.dir = addAngle(this.dir, (Math.random() - 0.5) * 15)
+        if(this.scale.x < 0.15) {
+            this.scale.x += 0.005
+            this.scale.y += 0.005
+        }
+
+        if(Math.random() > 0.95) {
+            let b = new Bubble(this.pos, this.dir)
+            this.scene.add(b)
+        }
     }
 
 

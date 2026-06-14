@@ -1,6 +1,5 @@
 import { Resources } from "./resources.js"
 import { Actor, randomInRange, Vector, Keys, Engine} from "excalibur";
-import { Fish } from './fish.js'
 import { Bubble } from './bubble.js'
 
 export class Shark extends Actor {

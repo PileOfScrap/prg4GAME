@@ -1,6 +1,5 @@
 import { Scene, Keys } from 'excalibur'
 import { Shark } from './shark.js'
-import { Fish } from './fish.js'
 
 export class Level1 extends Scene {
 
@@ -13,7 +12,7 @@ export class Level1 extends Scene {
         this.add(P1)
 
         for (let index = 0; index < 2; index++) {
-            const fish = new Fish();
+            const fish = new Fish()
             this.add(fish)
             
         }

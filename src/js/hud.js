@@ -1,5 +1,5 @@
 import { Resources } from "./resources.js"
-import { ScreenElement, Label, Vector } from 'excalibur'
+import { ScreenElement, Label, Vector, Graphic, Rectangle, Color } from 'excalibur'
 
 export class UI extends ScreenElement {
     constructor() {
@@ -23,9 +23,16 @@ export class UI extends ScreenElement {
             scale: new Vector(3, 3)
         })
 
+       this.healthBar = new Rectangle({
+            width: 200,
+            height: 20,
+            pos: new Vector(40, 50)
+        });
+
         this.addChild(this.ammoCounter)
         this.addChild(this.scoreCounter)
         this.addChild(this.highCounter)
+        this.graphics.add(this.healthBar)
 
 
     }
@@ -34,6 +41,10 @@ export class UI extends ScreenElement {
         this.ammoCounter.text = `BULLETS: ${this.scene.PLAYER.ammo}`
         this.scoreCounter.text = `SCORE: ${this.scene.score}`
         this.highCounter.text = `HIGH SCORE: ${this.scene.engine.high}`
+
+        let ratio = this.scene.PLAYER.health / this.scene.PLAYER.maxHealth
+
+        this.healthBar.width = 200 * ratio;
     }
 
 }

@@ -1,10 +1,9 @@
-import '../css/style.css';
-import { Actor, Engine, Vector, DisplayMode, Scene, Keys, FadeInOut, Color } from "excalibur";
-import { Resources, ResourceLoader } from './resources.js';
-import { Fish } from './fish.js';
-import { Shark } from './shark.js'
-import { Level1 } from './level1.js'
-import { mainScene } from './mainscene.js'
+import '../css/style.css'
+import { Actor, Engine, Vector, DisplayMode, Scene, Keys, FadeInOut, Color } from "excalibur"
+import { Resources, ResourceLoader } from './resources.js'
+import { MainScene } from './mainscene.js'
+import { GameOver } from './gameover.js'
+import { MainMenu } from './mainmenu.js'
 
 export class Game extends Engine {
     constructor() {
@@ -13,7 +12,10 @@ export class Game extends Engine {
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.FitScreen
-         })
+        })
+        
+        this.high = 0
+        
         this.start(ResourceLoader).then(() => this.startGame())
         
     }
@@ -22,13 +24,12 @@ export class Game extends Engine {
 
     startGame() {
         console.log("start de game!")
-        
-        let transitions = {
-            in: new FadeInOut({ duration: 400, direction: 'in', color: Color.Black }),
-            out: new FadeInOut({ duration: 400, direction: 'out', color: Color.Black })
-        }
-        this.add('level', { scene: new mainScene(), transitions })
-        this.goToScene('level') 
+
+        this.add('menu', new MainMenu());
+        this.add('game', new MainScene());
+        this.add('gameover', new GameOver());
+
+        this.goToScene('menu');
         
     }
     
