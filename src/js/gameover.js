@@ -11,7 +11,7 @@ export class GameOver extends Scene {
         })
 
         const score = new Label({
-            text: `High Score: ${engine.highScore ?? 0}`,
+            text: `High Score: ${this.engine.high}`,
             pos: new Vector(300, 220),
             font: new Font({ size: 24, unit: FontUnit.Px, color: Color.White })
         })
